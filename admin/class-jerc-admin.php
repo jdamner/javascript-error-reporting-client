@@ -178,7 +178,7 @@ class JercAdmin
      * @global wpdb $wpdb WPDB
      * @return array
      */
-    public function getData($paging = true)
+    private function getData($paging = true)
     {
         
         $q = $this->getFilteredQuery();
@@ -195,7 +195,7 @@ class JercAdmin
      * 
      * @return int
      */
-    public function getCount()
+    private function getCount()
     {
         $q = $this->getFilteredQuery();
         
@@ -212,7 +212,7 @@ class JercAdmin
      * 
      * @return array
      */
-    public function getFilterKeys()
+    private function getFilterKeys()
     {
         return array(
             'time_from',
@@ -233,7 +233,7 @@ class JercAdmin
      * 
      * @return array
      */
-    public function getFilters()
+    private function getFilters()
     {
         $filters = array();
         foreach ($this->getFilterKeys() as $key) {
@@ -255,7 +255,7 @@ class JercAdmin
      * 
      * @return string
      */
-    public function getFilterUrl($key, $value)
+    private function getFilterUrl($key, $value)
     {
         $filters = $this->getFilters();
         $filters[$key] = $value;
@@ -272,7 +272,7 @@ class JercAdmin
      * 
      * @since 1.0.0
      */
-    public function removeFilterUrl($key)
+    private function removeFilterUrl($key)
     {
         $filters = $this->getFilters();
         if (isset($filters[$key])) {
@@ -324,7 +324,7 @@ class JercAdmin
      * 
      * @return void
      */
-    public function displayPagination()
+    private function displayPagination()
     {
         $output = '<span class="displaying-num">' . sprintf(
             /* translators: %s: Number of items. */

@@ -102,23 +102,21 @@ class JercPublic
         // Using XHR for the JS, so json comes in via php://input
         $request = json_decode(urldecode(file_get_contents('php://input')), true);
         if (JSON_ERROR_NONE !== json_last_error()) {
-            http_response_code(400);
-            echo json_encode(
+            wp_send_json_error(
                 array(
                     "error" => "Encoding Error",
                     "message" => json_last_error_msg(),
-                )
+                ),
+                400
             );
-            exit;
         }
         if (!wp_verify_nonce($request['nonce'], $this->plugin_name)) {
-            http_response_code(401);
-            echo json_encode(
+            wp_send_json_error(
                 array(
                     "error" => "CSRF Error",
-                )
+                ),
+                401
             );
-            exit;
         }
 
         global $wpdb;

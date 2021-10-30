@@ -8,7 +8,7 @@
  * @category WP-Plugin
  * @package  Jerc
  * @author   James Amner <jdamner@me.com>
- * @license  GNU GPLv2 https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+ * @license  GNU GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link     https://amner.me
  * @since    1.0.0
  *

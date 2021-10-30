@@ -120,7 +120,6 @@
                 <?php endforeach; ?>
                 <button class='button' type='submit' name='action' value='<?php echo $this->action; ?>'>Export CSV</button>
             </form>
-
         </div>
         <?php $this->displayPagination(); ?>
     </div>

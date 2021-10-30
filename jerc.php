@@ -26,6 +26,11 @@ if (!defined('WPINC')) {
     die;
 }
 
+// Check we can access some core WP functions, just to make sure we're in WP land!
+if (!(is_callable('plugin_dir_path') && is_callable('register_activation_hook') && is_callable('register_deactivation_hook'))) {
+    die;
+}
+
 /**
  * The plugin version
  *

@@ -151,7 +151,7 @@ class JercAdmin
         foreach ($filters as $key => $value) {
             
             if ($key !== 'time_from' && $key !== 'time_to') {
-                $q .= ' AND ' . $key . ' = \'' . $value . '\'';
+                $q .= ' AND ' . esc_sql($key) . ' = \'' . esc_sql($value) . '\'';
             } 
         }
 
@@ -184,7 +184,7 @@ class JercAdmin
         $q = $this->getFilteredQuery();
 
         if ($paging) {
-            $q .= ' LIMIT ' . (isset($_REQUEST['paged']) ? 10 * $_REQUEST['paged'] : 0) . ', 10';
+            $q .= ' LIMIT ' . esc_sql(intval(isset($_REQUEST['paged']) ? 10 * $_REQUEST['paged'] : 0)) . ', 10';
         }
         global $wpdb;
         return $wpdb->get_results($q);
@@ -237,8 +237,8 @@ class JercAdmin
     {
         $filters = array();
         foreach ($this->getFilterKeys() as $key) {
-            if (isset($_REQUEST[$key]) && $_REQUEST[$key] !== '') {
-                $filters[$key] = $_REQUEST[$key];
+            if (isset($_REQUEST[$key]) && ($_REQUEST[$key] !== '') && is_string($_REQUEST[$key])) {
+                $filters[$key] = sanitize_text_field($_REQUEST[$key]);
             }
         }
         return $filters;
@@ -332,7 +332,7 @@ class JercAdmin
             number_format_i18n($this->getCount())
         ) . '</span>';
 
-        $current = isset($_REQUEST['paged']) ? $_REQUEST['paged'] : 1;
+        $current = intval(isset($_REQUEST['paged']) ? $_REQUEST['paged'] : 1);
         $total_pages = floor($this->getCount() / 10);
 
         $current_url = set_url_scheme('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
@@ -425,6 +425,6 @@ class JercAdmin
             $page_class = ' no-pages';
         }
 
-        echo "<div class='tablenav-pages{$page_class}'>$output</div>";
+        echo wp_kses_post("<div class='tablenav-pages{$page_class}'>$output</div>");
     }    
 }

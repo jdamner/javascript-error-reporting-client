@@ -122,6 +122,8 @@ class JercPublic
         global $wpdb;
         $table_name = $wpdb->prefix . $this->plugin_name . "_data";
 
+        // No need to escape SQL input;
+        // @see https://developer.wordpress.org/reference/classes/wpdb/insert/
         $data = array(
             "message" => $request['message'],
             "script" => $request['script'] . ":" . $request['lineNo'] . ":" . $request['columnNo'],

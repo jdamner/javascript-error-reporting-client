@@ -17,37 +17,37 @@
 <div class="wrap">
     <h1>Javascript Error Reporting</h1>
     <form>
-        <input type='hidden' name='page' value='<?php echo $this->name; ?>'>
+        <input type='hidden' name='page' value='<?php echo esc_attr($this->name); ?>'>
         <div class="tablenav top">
 
             <div class="alignleft">
                 <label for="date-from-select" class="">Between:</label>
-                <input type='datetime-local' name="time_from" id="date-from-select" value='<?php echo isset($_REQUEST['time_from']) ? $_REQUEST['time_from'] : ''; ?>'></input>
+                <input type='datetime-local' name="time_from" id="date-from-select" value='<?php echo esc_attr(isset($_REQUEST['time_from']) ? $_REQUEST['time_from'] : ''); ?>'></input>
                 <label for="date-to-select" class=""> : </label>
-                <input type='datetime-local' name="time_to" id="date-to-select" value='<?php echo isset($_REQUEST['time_to']) ? $_REQUEST['time_to'] : ''; ?>'></input>
+                <input type='datetime-local' name="time_to" id="date-to-select" value='<?php echo esc_attr(isset($_REQUEST['time_to']) ? $_REQUEST['time_to'] : ''); ?>'></input>
                 <input type="submit" id="doaction" class="button action" value="Filter">
                 
                 
                 <?php foreach ($this->getFilters() as $key => $value) : ?>
                     <?php if ($key !== 'time_from' && $key !== 'time_to') : ?>
-                        <input type='hidden' name='<?php echo $key; ?>' value='<?php echo $value; ?>'>
-                        <a class='button' href='<?php echo $this->removeFilterUrl($key); ?>'>
+                        <input type='hidden' name='<?php echo esc_attr($key); ?>' value='<?php echo esc_attr($value); ?>'>
+                        <a class='button' href='<?php echo esc_url($this->removeFilterUrl($key)); ?>'>
                             <span class="dashicons dashicons-remove" style='line-height:1.4;'></span>
                             <?php 
                             if ($key === 'userId') {
                                 if ($value == 0) {
                                     echo "Anonymous";
                                 } else {
-                                    echo get_userdata($value)->user_nicename;
+                                    echo wp_kses_post(get_userdata($value)->user_nicename);
                                 }
                             } else {
-                                echo $value;
+                                echo wp_kses_post($value);
                             }
                             ?>
                         </a>
                     <?php endif; ?>
                 <?php endforeach; ?>
-                <a class="button" href="?page=<?php echo $this->name; ?>">Reset</a>
+                <a class="button" href="?page=<?php echo esc_attr($this->name); ?>">Reset</a>
             </div>
             <?php $this->displayPagination(); ?>
             <br class="clear">
@@ -74,36 +74,36 @@
                             $user = get_userdata($row->userId);
                         } ?>
                         <td>
-                            <?php echo $row->timestamp; ?>
+                            <?php echo wp_kses_post($row->timestamp); ?>
                         </td>
                         <td>
-                            <a href='<?php echo $this->getFilterUrl('message', $row->message); ?>'>
-                                <?php echo $row->message; ?>
+                            <a href='<?php echo esc_url($this->getFilterUrl('message', $row->message)); ?>'>
+                                <?php echo wp_kses_post($row->message); ?>
                             </a>
                         </td>
                         <td>
-                            <a href='<?php echo $this->getFilterUrl('script', $row->script); ?>'>
-                                <?php echo $row->script; ?>
+                            <a href='<?php echo esc_url($this->getFilterUrl('script', $row->script)); ?>'>
+                                <?php echo wp_kses_post($row->script); ?>
                             </a>
                         </td>
                         <td>
-                            <a href='<?php echo $this->getFilterUrl('userId', (isset($user) ? $user->ID : 0)); ?>'>
-                                <?php echo (isset($user) ? $user->user_nicename : 'Anonymous'); ?>
+                            <a href='<?php echo esc_url($this->getFilterUrl('userId', (isset($user) ? $user->ID : 0))); ?>'>
+                                <?php echo wp_kses_post(isset($user) ? $user->user_nicename : 'Anonymous'); ?>
                             </a>
                         </td>
                         <td>
-                            <a href='<?php echo $this->getFilterUrl('userIp', $row->userIp); ?>'>
-                                <?php echo $row->userIp; ?>
+                            <a href='<?php echo esc_url($this->getFilterUrl('userIp', $row->userIp)); ?>'>
+                                <?php echo wp_kses_post($row->userIp); ?>
                             </a>
                         </td>
                         <td>
-                            <a href='<?php echo $this->getFilterUrl('pageUrl', $row->pageUrl); ?>'>
-                                <?php echo $row->pageUrl; ?>
+                            <a href='<?php echo esc_url($this->getFilterUrl('pageUrl', $row->pageUrl)); ?>'>
+                                <?php echo wp_kses_post($row->pageUrl); ?>
                             </a>
                         </td>
                         <td>
-                            <a href='<?php echo $this->getFilterUrl('agent', $row->agent); ?>'>
-                                <?php echo $row->agent; ?>
+                            <a href='<?php echo esc_url($this->getFilterUrl('agent', $row->agent)); ?>'>
+                                <?php echo wp_kses_post($row->agent); ?>
                             </a>
                         </td>
                     </tr>
@@ -113,12 +113,12 @@
     </form>
     <div class='tablenav bottom'>
         <div class='alignleft'>
-            <form method='POST' action='<?php echo admin_url('admin-post.php'); ?>'>
+            <form method='POST' action='<?php echo esc_url(admin_url('admin-post.php')); ?>'>
                 <?php wp_nonce_field($this->action); ?>
                 <?php foreach ($this->getFilters() as $key => $value) : ?>
-                    <input type='hidden' name='<?php echo $key; ?>' value='<?php echo $value; ?>'>
+                    <input type='hidden' name='<?php echo esc_attr($key); ?>' value='<?php echo esc_attr($value); ?>'>
                 <?php endforeach; ?>
-                <button class='button' type='submit' name='action' value='<?php echo $this->action; ?>'>Export CSV</button>
+                <button class='button' type='submit' name='action' value='<?php echo esc_attr($this->action); ?>'>Export CSV</button>
             </form>
         </div>
         <?php $this->displayPagination(); ?>

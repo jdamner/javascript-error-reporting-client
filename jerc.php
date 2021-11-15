@@ -16,7 +16,7 @@
  * Plugin Name:       Javascript Error Reporting Client
  * Plugin URI:        https://www.amner.me/
  * Description:       A plugin to collect data about client javascript errors.
- * Version:           1.0.0
+ * Version:           1.0.3
  * Author:            James Amner <jdamner@me.com>
  * Author URI:        https://www.amner.me
  */
@@ -36,7 +36,7 @@ if (!(is_callable('plugin_dir_path') && is_callable('register_activation_hook') 
  *
  * @var string The plugin version
  */
-define('JERC_VERSION', '1.1.0');
+define('JERC_VERSION', '1.0.3');
 
 /**
  * Activation Function

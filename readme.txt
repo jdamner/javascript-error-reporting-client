@@ -3,7 +3,7 @@ Contributors: jdamner
 Donate link: https://amner.me/
 Tags: javascript, error, developer, reporting, bug, debug, js, console
 Requires at least: 5.0
-Tested up to: 5.9
+Tested up to: 6.1
 Stable tag: 1.0.0
 Requires PHP: 7.0
 License: GPLv3
